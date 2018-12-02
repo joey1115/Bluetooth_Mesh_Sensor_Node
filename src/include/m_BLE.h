@@ -33,7 +33,7 @@
 #include "nrf_ble_qwr.h"
 #include "ble_conn_state.h"
 
-#define DEVICE_NAME "A"                /**< Name of device. Will be included in the advertising data. */
+#define DEVICE_NAME "SN"                /**< Name of device. Will be included in the advertising data. */
 #define MANUFACTURER_NAME "NordicSemiconductor" /**< Manufacturer. Will be passed to Device Information Service. */
 
 #define FIRST_CONN_PARAMS_UPDATE_DELAY APP_TIMER_TICKS(5000) /**< Time from initiating event (connect or start of notification) to first time sd_ble_gap_conn_param_update is called (5 seconds). */

@@ -42,8 +42,8 @@ void update_adv_seat(uint8_t seat, float temp)
     ret_code_t error_code;
 
     advertising_data_init.advdata.p_manuf_specific_data->data.p_data[1] = seat;
-    advertising_data_init.advdata.p_manuf_specific_data->data.p_data[2] = (uint8_t)((((int)temp*10) >> 8) & 0xFF);
-    advertising_data_init.advdata.p_manuf_specific_data->data.p_data[3] = (uint8_t)((((int)temp*10) >> 0) & 0xFF);
+    advertising_data_init.advdata.p_manuf_specific_data->data.p_data[2] = (uint8_t)(((int)(temp*10) >> 8) & 0xFF);
+    advertising_data_init.advdata.p_manuf_specific_data->data.p_data[3] = (uint8_t)(((int)(temp*10) >> 0) & 0xFF);
     error_code = m_ble_advertising_update(&m_advertising, &advertising_data_init);
     APP_ERROR_CHECK(error_code);
 }
