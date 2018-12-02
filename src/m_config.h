@@ -12,7 +12,7 @@
 #endif
 
 // BLE
-#define NUM_OF_ADV_BYTE 2
+#define NUM_OF_ADV_BYTE 4
 #define APP_ADV_INTERVAL 480                                /**< The advertising interval (in units of 0.625 ms. This value corresponds to 187.5 ms). */
 #define BATTERY_LEVEL_MEAS_INTERVAL APP_TIMER_TICKS(1000)   /**< Battery level measurement interval (ticks). */
 #define BATTERY_LEVEL_EVENT_INTERVAL APP_TIMER_TICKS(10000*6*60) /**< Battery level measurement interval (ticks). */

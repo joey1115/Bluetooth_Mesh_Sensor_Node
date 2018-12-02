@@ -70,7 +70,7 @@ extern "C"
 #endif
 
     void update_adv_bal(uint8_t bal);
-    void update_adv_seat(uint8_t seat);
+    void update_adv_seat(uint8_t seat, float temp);
     void advertising_start(bool erase_bonds);
     void battery_level_update(uint8_t battery_level);
     void gap_params_init(void);

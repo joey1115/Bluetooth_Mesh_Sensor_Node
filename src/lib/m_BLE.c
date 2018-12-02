@@ -28,16 +28,6 @@ static ble_advdata_manuf_data_t m_advdata_manuf_data;
 static uint8_t bas_seat_data[NUM_OF_ADV_BYTE];
 static ble_advertising_init_t advertising_data_init;
 
-void update_adv_temp(uint16_t temp)
-{
-    ret_code_t error_code;
-
-    advertising_data_init.advdata.p_manuf_specific_data->data.p_data[2] = temp & 0xFF;
-    advertising_data_init.advdata.p_manuf_specific_data->data.p_data[3] = (temp>>8) & 0xFF;
-    error_code = m_ble_advertising_update(&m_advertising, &advertising_data_init);
-    APP_ERROR_CHECK(error_code);
-}
-
 void update_adv_bal(uint8_t bal)
 {
     ret_code_t error_code;
@@ -47,11 +37,13 @@ void update_adv_bal(uint8_t bal)
     APP_ERROR_CHECK(error_code);
 }
 
-void update_adv_seat(uint8_t seat)
+void update_adv_seat(uint8_t seat, float temp)
 {
     ret_code_t error_code;
 
     advertising_data_init.advdata.p_manuf_specific_data->data.p_data[1] = seat;
+    advertising_data_init.advdata.p_manuf_specific_data->data.p_data[2] = (uint8_t)(((int)temp*10) & 0xFF);
+    advertising_data_init.advdata.p_manuf_specific_data->data.p_data[3] = (uint8_t)((((int)temp*10) >> 8) & 0xFF);
     error_code = m_ble_advertising_update(&m_advertising, &advertising_data_init);
     APP_ERROR_CHECK(error_code);
 }
@@ -276,6 +268,8 @@ void advertising_init(void)
     advertising_data_init.advdata.uuids_complete.p_uuids = m_adv_uuids;
     bas_seat_data[0] = 0;
     bas_seat_data[1] = 0;
+    bas_seat_data[2] = 0;
+    bas_seat_data[3] = 0;
     m_advdata_manuf_data.company_identifier = 0x0A;
     m_advdata_manuf_data.data.size = sizeof(bas_seat_data) / sizeof(bas_seat_data[0]);
     m_advdata_manuf_data.data.p_data = bas_seat_data;
