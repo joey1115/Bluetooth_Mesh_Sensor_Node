@@ -29,7 +29,7 @@ void AK9750_read(void)
 {
     AK9750_readRegister(AK9750_ST1);
     seat_status = m_check_data(AK9750_get_IR1(), AK9750_get_IR2(), AK9750_get_IR3(), AK9750_get_IR4(), app_timer_cnt_get());
-    (seat_status == SEAT_OCCUPIED) ? update_adv_seat((uint8_t)1, AK9750_get_TMP())) : update_adv_seat((uint8_t)0, AK9750_get_TMP()));
+    (seat_status == SEAT_OCCUPIED) ? update_adv_seat((uint8_t)1, AK9750_get_TMP()) : update_adv_seat((uint8_t)0, AK9750_get_TMP());
 #ifdef DEBUG
     NRF_LOG_INFO("%d", NRF_FICR->DEVICEID[0]);
     NRF_LOG_INFO("Temp: " NRF_LOG_FLOAT_MARKER, NRF_LOG_FLOAT(AK9750_get_TMP()));
