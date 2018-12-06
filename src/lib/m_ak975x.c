@@ -28,7 +28,7 @@ static const uint8_t AK9750_ADDR[NUM_OF_OPERATING_MODE] = {0x64, 0x65, 0x66, 0x0
 void AK9750_read(void)
 {
     AK9750_readRegister(AK9750_ST1);
-    seat_status = m_check_data(AK9750_get_IR1(), AK9750_get_IR2(), AK9750_get_IR3(), AK9750_get_IR4(), app_timer_cnt_get());
+    seat_status = m_check_data(AK9750_get_IR1(), AK9750_get_IR2(), AK9750_get_IR3(), AK9750_get_IR4(), AK9750_get_TMP(), app_timer_cnt_get());
     (seat_status == SEAT_OCCUPIED) ? update_adv_seat((uint8_t)1, AK9750_get_TMP()) : update_adv_seat((uint8_t)0, AK9750_get_TMP());
 #ifdef DEBUG
     NRF_LOG_INFO("%d", NRF_FICR->DEVICEID[0]);
@@ -54,7 +54,7 @@ void AK9750_init(void)
     AK9750_twi_init();
     AK9750_twi_enable();
     AK9750_soft_reset();
-    AK9750_set_mode(AK9750_MODE_3);
+    AK9750_set_mode(AK9750_MODE_1);
     AK9750_set_cutoff_freq(AK9750_FREQ_8_8HZ);
     AK9750_refresh();
 }
@@ -165,8 +165,8 @@ static void AK9750_set_mode(uint8_t mode)
 {
     uint8_t ecntl1_val;
     ecntl1_val = AK9750_readRegister(AK9750_ECNTL1);
-    ecntl1_val &= 0b11000000;
-    ecntl1_val += 5 << 3;
+    ecntl1_val &= 0b11111000;
+    // ecntl1_val += 5 << 3;
     ecntl1_val |= mode;
     AK9750_writeRegister(AK9750_ECNTL1, ecntl1_val);
 }

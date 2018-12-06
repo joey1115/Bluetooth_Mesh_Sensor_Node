@@ -25,6 +25,7 @@ typedef enum
 typedef struct
 {
     uint8_t x[NUM_OF_IR];
+    float temp;
     float v[NUM_OF_IR];
     unsigned long tic;
 } m_data_data_type_t;
@@ -48,7 +49,7 @@ extern "C"
 {
 #endif
 
-    m_data_seat_status_type_t m_check_data(int16_t m_data_IR1, int16_t m_data_IR2, int16_t m_data_IR3, int16_t m_data_IR4, uint32_t t);
+    m_data_seat_status_type_t m_check_data(int16_t m_data_IR1, int16_t m_data_IR2, int16_t m_data_IR3, int16_t m_data_IR4, float m_data_temp, uint32_t tic);
 
 #ifdef DEBUG
     uint16_t geta(void);

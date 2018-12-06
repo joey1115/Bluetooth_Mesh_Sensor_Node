@@ -24,12 +24,22 @@ static float vector_norm;
 static m_data_timer_type_t sensor_timer = {(uint32_t)0, SEAT_UNKNOWN};
 static m_data_timer_type_t seat_timer = {(uint32_t)0, SEAT_UNKNOWN};
 
-m_data_seat_status_type_t m_check_data(int16_t m_data_IR1, int16_t m_data_IR2, int16_t m_data_IR3, int16_t m_data_IR4, uint32_t tic)
+static int32_t IR_sat(int16_t m_data_IR)
 {
-    curr_data.x[0] = ((int32_t)m_data_IR1 / 4 + 2048) >> 5;
-    curr_data.x[1] = ((int32_t)m_data_IR2 / 4 + 2048) >> 5;
-    curr_data.x[2] = ((int32_t)m_data_IR3 / 4 + 2048) >> 5;
-    curr_data.x[3] = ((int32_t)m_data_IR4 / 4 + 2048) >> 5;
+    return (((m_data_IR + 3072) < 0) ? 0:(((m_data_IR + 3072) >= 8192) ? 8192:(m_data_IR + 3072)));
+}
+
+m_data_seat_status_type_t m_check_data(int16_t m_data_IR1, int16_t m_data_IR2, int16_t m_data_IR3, int16_t m_data_IR4, float m_data_temp, uint32_t tic)
+{
+    // curr_data.x[0] = ((int32_t)m_data_IR1 / 4 + 2048) >> 5;
+    // curr_data.x[1] = ((int32_t)m_data_IR2 / 4 + 2048) >> 5;
+    // curr_data.x[2] = ((int32_t)m_data_IR3 / 4 + 2048) >> 5;
+    // curr_data.x[3] = ((int32_t)m_data_IR4 / 4 + 2048) >> 5;
+    curr_data.x[0] = IR_sat(m_data_IR1) >> 5;
+    curr_data.x[1] = IR_sat(m_data_IR2) >> 5;
+    curr_data.x[2] = IR_sat(m_data_IR3) >> 5;
+    curr_data.x[3] = IR_sat(m_data_IR4) >> 5;
+    curr_data.temp = m_data_temp;
     curr_data.tic = tic;
 
     alpha_beta_filter();
@@ -136,13 +146,28 @@ static void vectorize(void)
     }
     IR_vector.x[0] = ((int16_t)curr_data.x[0] - (int16_t)curr_data.x[1]);
     IR_vector.x[1] = ((int16_t)curr_data.x[1] - (int16_t)curr_data.x[3]);
-    IR_vector.cof = powf(4, 1024 / (float)sum);
+    uint8_t offset = (curr_data.temp > 30) * 40;
+    // IR_vector.cof = powf(4, 1024 / ((float)sum));
+    IR_vector.cof = 4.0 / sum;
+}
+
+static bool isOccupied()
+{
+    
+    for(i = 0; i < NUM_OF_IR; i++)
+    {
+        
+        if (curr_data.x[i] > 100) {
+            return true;
+        }
+        
+    }
+    return false;
 }
 
 static void check_sensor(void)
 {
-
-    if (IR_vector.x[0] == 0 && IR_vector.x[1])
+    if (IR_vector.x[0] == 0 && IR_vector.x[1] == 0)
     {
         vector_norm = IR_vector.cof;
     }
@@ -150,7 +175,9 @@ static void check_sensor(void)
     {
         vector_norm = IR_vector.cof * sqrtf((float)IR_vector.x[0] * (float)IR_vector.x[0] + (float)IR_vector.x[1] * (float)IR_vector.x[1]);
     }
-    if (vector_norm < threshold)
+
+    // if (vector_norm < threshold)
+    if (isOccupied())
     {
         sensor_status = SEAT_OCCUPIED;
     }

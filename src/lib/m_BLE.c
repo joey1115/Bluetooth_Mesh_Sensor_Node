@@ -435,10 +435,10 @@ static void on_adv_evt(ble_adv_evt_t ble_adv_evt)
         NRF_LOG_INFO("Fast advertising.");
 #endif
         break;
-    // case BLE_ADV_EVT_IDLE:
-        // err_code = ble_advertising_start(&m_advertising, BLE_ADV_MODE_FAST);
-        // APP_ERROR_CHECK(err_code);
-        // break;
+    case BLE_ADV_EVT_IDLE:
+        err_code = ble_advertising_start(&m_advertising, BLE_ADV_MODE_FAST);
+        APP_ERROR_CHECK(err_code);
+        break;
 
         // case BLE_ADV_EVT_DIRECTED_HIGH_DUTY:
         //     err_code = ble_advertising_start(&m_advertising, BLE_ADV_MODE_FAST);

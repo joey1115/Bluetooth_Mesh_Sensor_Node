@@ -25,10 +25,10 @@
 #define alpha 0.5
 #define beta 0.1
 #define MAXIMUM_OF_INTERVAL 5
-#define threshold 500
+#define threshold 2500
 #define SENSOR_WAIT_MS 5000
 #define SEAT_ENTERING_MS 10000
-#define SEAT_LEAVING_MS 100000
+#define SEAT_LEAVING_MS 10000
 
 // Sensor
 #define SENSOR_DEFAULT_MODE NORMAL_MODE_2
