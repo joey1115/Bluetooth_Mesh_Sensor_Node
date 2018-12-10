@@ -26,7 +26,7 @@ static m_data_timer_type_t seat_timer = {(uint32_t)0, SEAT_UNKNOWN};
 
 static int32_t IR_sat(int16_t m_data_IR)
 {
-    return (((m_data_IR + 3072) < 0) ? 0:(((m_data_IR + 3072) >= 8192) ? 8192:(m_data_IR + 3072)));
+    return (((m_data_IR + 4600) < 0) ? 0:(((m_data_IR + 4600) >= 8192) ? 8192:(m_data_IR + 4600)));
 }
 
 m_data_seat_status_type_t m_check_data(int16_t m_data_IR1, int16_t m_data_IR2, int16_t m_data_IR3, int16_t m_data_IR4, float m_data_temp, uint32_t tic)
