@@ -19,12 +19,16 @@ extern "C"
 {
 #endif
 
+// Initialize GPIO
 void m_gpio_init(void);
 #ifdef DEBUG
 void m_write_led(uint8_t status);
 #endif
+// Turn on the switch on the buck for voltage divider
 void m_buck_on(void);
+// Turn off the swtich on the buck
 void m_buck_off(void);
+// Configure the GPIO pins that controll the IR sensor
 void m_sensor_gpio_config(m_sensor_operating_mode_type_t operating_mode);
 
 #ifdef __cplusplus

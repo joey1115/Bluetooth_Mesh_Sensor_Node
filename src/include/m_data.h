@@ -49,6 +49,7 @@ extern "C"
 {
 #endif
 
+    // Process the data from IR sensor
     m_data_seat_status_type_t m_check_data(int16_t m_data_IR1, int16_t m_data_IR2, int16_t m_data_IR3, int16_t m_data_IR4, float m_data_temp, uint32_t tic);
 
 #ifdef DEBUG

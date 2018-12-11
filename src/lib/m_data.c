@@ -1,9 +1,14 @@
 #include "m_data.h"
 
+// Apply alpha beta filter
 static void alpha_beta_filter(void);
+// Vectorize the data
 static void vectorize(void);
+// Check the data to determine if the seat is occupied
 static void check_sensor(void);
+// Update the time count for sensor occupancy
 static void update_sensor_timer(void);
+// Update the time count for seat occupancy
 static void update_seat_timer(void);
 
 static const uint32_t seat_wait[2] = {SEAT_ENTERING_TIC, SEAT_LEAVING_TIC};

@@ -97,8 +97,9 @@ typedef struct
 extern "C"
 {
 #endif
-
+    // Initialize AK9573
     void AK9750_init(void);
+    // Start read ones
     void AK9750_read(void);
 
 #ifdef __cplusplus

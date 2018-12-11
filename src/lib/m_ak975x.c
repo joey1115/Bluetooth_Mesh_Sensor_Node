@@ -1,23 +1,40 @@
 #include "m_ak975x.h"
 
+// Event handler for I2C
 static void AK9750_twi_evt_handler(nrfx_twi_evt_t const *p_event, void *p_context);
+// Read a 8-bit register
 static uint8_t AK9750_readRegister(uint8_t reg_location);
+// Write a 8-bit register
 static void AK9750_writeRegister(uint8_t reg_location, uint8_t val);
+// Read a 8-bit register
 static uint16_t AK9750_readRegister16(uint8_t reg_location);
+// Initialize I2C
 static void AK9750_twi_init(void);
+// Enable I2C
 static void AK9750_twi_enable(void);
-static void AK9750_twi_enable(void);
+// Disable I2C
 static void AK9750_twi_disable(void);
+// Soft reset IR Sensor
 static void AK9750_soft_reset(void);
+// Configure interrupts
 static void AK9750_set_interrupts(bool ir13h, bool ir13l, bool ir24h, bool ir24l, bool dr);
+// Set cut-off frequency
 static void AK9750_set_cutoff_freq(uint8_t freq);
+// Set operating mode
 static void AK9750_set_mode(uint8_t mode);
+// Get the ID of IR sensor module
 static void AK9750_get_device_id();
+// Refresh IR sensor
 static void AK9750_refresh();
+// Get the reading of channel 1
 static int16_t AK9750_get_IR1(void);
+// Get the reading of channel 2
 static int16_t AK9750_get_IR2(void);
+// Get the reading of channel 3
 static int16_t AK9750_get_IR3(void);
+// Get the reading of channel 4
 static int16_t AK9750_get_IR4(void);
+// Get the temperature reading
 static float AK9750_get_TMP(void);
 
 static ak9750_sensor_t ir_sensor;

@@ -69,17 +69,30 @@ extern "C"
 {
 #endif
 
+    // Update battery level in advertisement data
     void update_adv_bal(uint8_t bal);
+    // Update seat status in advertisement data
     void update_adv_seat(uint8_t seat, float temp);
+    // Start advertising
     void advertising_start(bool erase_bonds);
+#ifdef DEBUG
     void battery_level_update(uint8_t battery_level);
+#endif
+    // Initialize gap
     void gap_params_init(void);
+    // Initialize GATT module
     void gatt_init(void);
+    // Initialize services that will be used by the application
     void services_init(void);
+    // Initialize the Connection Parameters module
     void conn_params_init(void);
+    // Initialize the BLE stack
     void ble_stack_init(void);
+    // Initialize Peer Manager
     void peer_manager_init(void);
+    // Initialize the Advertising functionality
     void advertising_init(void);
+    // Respond to a DH key requests
     ret_code_t m_nrf_ble_lesc_request_handler(void);
 
 #ifdef __cplusplus

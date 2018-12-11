@@ -1,5 +1,6 @@
 #include "m_adc.h"
 
+// Handler for saadc
 static void saadc_evt_handler(nrfx_saadc_evt_t const *p_event);
 
 static nrf_saadc_value_t m_buffer_pool[NUMBER_OF_BUFFERS][SAMPLES_IN_BUFFER];

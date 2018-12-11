@@ -1,12 +1,20 @@
 #include "m_BLE.h"
 
+// Update advertisement data
 static ret_code_t m_ble_advertising_update(ble_advertising_t *const p_advertising, ble_advertising_init_t const *const p_init);
+// Peer Manager event handler
 static void pm_evt_handler(pm_evt_t const *p_evt);
+// GATT event handler
 static void gatt_evt_handler(nrf_ble_gatt_t *p_gatt, nrf_ble_gatt_evt_t const *p_evt);
+// Handle Queued Write Module errors
 static void nrf_qwr_error_handler(uint32_t nrf_error);
+// Handle the Connection Parameters Module
 static void on_conn_params_evt(ble_conn_params_evt_t *p_evt);
+// Handle a Connection Parameters error
 static void conn_params_error_handler(uint32_t nrf_error);
+// Handle advertising events
 static void on_adv_evt(ble_adv_evt_t ble_adv_evt);
+// Handle BLE events
 static void ble_evt_handler(ble_evt_t const *p_ble_evt, void *p_context);
 
 #ifdef DEBUG
