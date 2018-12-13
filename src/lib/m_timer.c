@@ -1,7 +1,10 @@
 #include "m_timer.h"
 
+// Battery level measurement handler
 static void battery_level_meas_timeout_handler(void *p_context);
+// Battery level event handler
 static void battery_level_event_timeout_handler(void *p_context);
+// Sensor event handler
 static void sensor_event_timeout_handler(void *p_context);
 
 APP_TIMER_DEF(m_battery_timer_id);
